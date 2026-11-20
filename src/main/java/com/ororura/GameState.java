@@ -31,7 +31,7 @@ public class GameState {
     }
 
     public void update() {
-        if(isWon()) {
+        if (isWon()) {
             return;
         }
 
@@ -41,9 +41,9 @@ public class GameState {
         playerX = clamp(playerX + dx * SPEED, 0, WIDTH - PLAYER_SIZE);
         playerY = clamp(playerY + dy * SPEED, HUD_HEIGHT, HEIGHT - PLAYER_SIZE);
 
-        if(getPlayerBounds().intersects(getCoinBounds())) {
+        if (getPlayerBounds().intersects(getCoinBounds())) {
             score++;
-            if(!isWon()) {
+            if (!isWon()) {
                 spawnCoin();
             }
         }

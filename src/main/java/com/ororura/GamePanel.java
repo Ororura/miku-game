@@ -16,11 +16,6 @@ public class GamePanel extends JPanel {
     private final BufferedImage coinSprite;
     private int tickCount = 0;
 
-    private void registerKey(String key, String direction) {
-        bind("pressed " + key, key + "-press", direction, true);
-        bind("released " + key, key + "-release", direction, false);
-    }
-
     public GamePanel() {
         setPreferredSize(new Dimension(GameState.WIDTH, GameState.HEIGHT));
         setBackground(Color.WHITE);
@@ -35,6 +30,10 @@ public class GamePanel extends JPanel {
         timer.start();
     }
 
+    private void registerKey(String key, String direction) {
+        bind("pressed " + key, key + "-press", direction, true);
+        bind("released " + key, key + "-release", direction, false);
+    }
 
     private void tick() {
         state.update();
@@ -58,8 +57,7 @@ public class GamePanel extends JPanel {
     }
 
 
-    private BufferedImage[] extractFrames(
-            BufferedImage sheet, int row, int count) {
+    private BufferedImage[] extractFrames(BufferedImage sheet, int row, int count) {
 
         int frameWidth = sheet.getWidth() / 8;
         int frameHeight = sheet.getHeight() / 11;
@@ -70,8 +68,7 @@ public class GamePanel extends JPanel {
             int x = i * frameWidth;
             int y = row * frameHeight;
 
-            frames[i] = sheet.getSubimage(
-                    x, y, frameWidth, frameHeight);
+            frames[i] = sheet.getSubimage(x, y, frameWidth, frameHeight);
         }
 
         return frames;
@@ -79,25 +76,21 @@ public class GamePanel extends JPanel {
 
 
     private BufferedImage loadImage(String path) {
-        try (InputStream input =
-                     getClass().getResourceAsStream(path)) {
+        try (InputStream input = getClass().getResourceAsStream(path)) {
 
             if (input == null) {
-                throw new IllegalArgumentException(
-                        "Файл не найден: " + path);
+                throw new IllegalArgumentException("Файл не найден: " + path);
             }
 
             BufferedImage image = ImageIO.read(input);
 
             if (image == null) {
-                throw new IllegalArgumentException(
-                        "Неверный формат: " + path);
+                throw new IllegalArgumentException("Неверный формат: " + path);
             }
 
             return image;
         } catch (IOException e) {
-            throw new IllegalStateException(
-                    "Ошибка загрузки: " + path, e);
+            throw new IllegalStateException("Ошибка загрузки: " + path, e);
         }
     }
 
